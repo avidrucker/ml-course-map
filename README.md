@@ -35,11 +35,14 @@
   - (assertion) Decision trees recursively split the dataset based on feature values to create a hierarchy of decision rules.  
   - (assertion) Each internal node in a decision tree corresponds to a test on a feature, and each leaf node corresponds to a class or value prediction.  
   - (assertion) Decision trees can overfit if not pruned or constrained by parameters like max depth or minimum samples per split.
+  - (task) Given a dataset, set max_depth=3 and fit a DecisionTreeClassifier, then visualize decision boundaries to understand how the model splits features.
 
 - Random Forest (topic)  
   - (assertion) A random forest is an ensemble of decision trees, each trained on a random subset of features and samples.  
   - (assertion) Random forests generally improve over single decision trees by reducing variance and thus overfitting.  
   - (assertion) The final prediction of a random forest is typically made by averaging or majority voting over all trees.
+  - (task) Fit a RandomForestClassifier with default parameters and report classification metrics.  
+  - (assertion) Random forests can produce stable results with minimal tuning and handle complex decision boundaries.
 
 - Overfitting/Underfitting (topic)  
   - (assertion) Overfitting occurs when a model learns patterns specific to the training data, failing to generalize to unseen data.  
@@ -50,16 +53,21 @@
   - (assertion) Accuracy measures the proportion of correct predictions but can be misleading if classes are imbalanced.  
   - (assertion) Precision and recall help evaluate the model’s performance on minority classes more effectively than accuracy alone.  
   - (assertion) The AUC (Area Under the ROC Curve) metric summarizes model performance across various threshold settings.
+  - (task) Compute classification_report (precision, recall, f1-score, accuracy) for multiple models and interpret differences.  
+  - (assertion) Classifier choice may depend on cost-sensitive considerations: finding all positives (high recall) vs. avoiding false positives (high precision).
 
 - Data Preprocessing (topic)  
   - (assertion) Scaling features ensures that no single feature dominates the model due to differences in magnitude and units.  
   - (assertion) Imputing missing data allows models to use as many samples as possible without discarding incomplete rows.  
   - (assertion) Handling outliers by transformation or removal can improve model stability and reduce the impact of anomalous points.
+  - (assertion) Stratification in train-test splitting ensures that class proportions are maintained, especially critical when classes are imbalanced.  
+  - (task) Perform a stratified train-test split using `StratifiedKFold` or `train_test_split` with `stratify` parameter.
 
 - Support Vector Classifier (SVC) (topic)  
   - (assertion) An SVC tries to find a hyperplane that maximizes the margin between classes.  
   - (assertion) Kernel functions allow SVC to model complex, non-linear decision boundaries.  
   - (assertion) Regularization parameters (like C) control the trade-off between a smooth decision boundary and correctly classifying training samples.
+  - (task) Fit an SVC with rbf kernel and C=1000, visualize decision boundaries, and compare metrics (precision, recall, F1).
 
 - Clustering (topic)  
   - (assertion) K-means clustering partitions data into K clusters, minimizing the within-cluster sum of squares.  
