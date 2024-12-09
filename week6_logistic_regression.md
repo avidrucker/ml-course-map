@@ -10,3 +10,5 @@
   - predict, and
   - evaluate the classification metrics.
 - (assertion) Adjusting the threshold for logistic regression predictions shifts the decision boundary, allowing control over the trade-off between precision and recall.
+- Data Preprocessing (topic)
+  - (assertion) When applying logistic regression, stratification can be important in train-test splits if class imbalance exists, ensuring that class proportions are maintained across splits.
