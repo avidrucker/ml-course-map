@@ -58,4 +58,64 @@
    A. The higher the recall score, the fewer false negatives the model produces  
    B. The higher the recall score, the more false negatives the model produces  
    C. The recall score is irrelevant for imbalanced datasets  
-   D. The recall score is the same thing as precision  
+   D. The recall score is the same thing as precision
+
+---
+
+**Here is the correctness of your answers**, followed by an explanation for each:
+
+---
+
+### Answers
+
+1. **B** – Correct  
+   - *Reason:* k-fold cross-validation is indeed used to systematically tune hyperparameters and reduce overfitting (among other benefits).
+
+2. **C** – Correct  
+   - *Reason:* We pick the `k` that gives the highest average accuracy (or highest chosen metric) across all cross-validation folds.
+
+3. **B** – Correct  
+   - *Reason:* `test_size=0.2` means 20% of the samples go into the test set, and 80% remain for training.
+
+4. **C** – **Incorrect**  
+   - *Correct answer:* **B** (`accuracy_score`)  
+   - *Reason:* The code explicitly shows `test_accuracy = accuracy_score(y_test, y_pred)`. Although `classification_report` is also useful, the numeric accuracy printed came from `accuracy_score`.
+
+5. **B** – Correct  
+   - *Reason:* Creating a mesh grid over the `(x, y)` range is a way to systematically sample points in feature space so we can predict their classes and plot the decision boundary.
+
+6. **C** – Correct  
+   - *Reason:* The Pima Indians Diabetes dataset is imbalanced, and minimizing false negatives is critical for medical screening, so **Recall** is the chosen metric.
+
+7. **B** – Correct  
+   - *Reason:* The grid search tuned `kernel`, `degree` (for the polynomial kernel), and `C`.
+
+8. **B** – Correct  
+   - *Reason:* The second experiment changes the portion of data reserved for testing from 20% to 10% (and a different random seed), nothing else.
+
+9. **A** – Correct  
+   - *Reason:* `make_scorer(recall_score, average='binary')` tells GridSearchCV to use **recall** instead of accuracy as the scoring metric.
+
+10. **A** – Correct  
+   - *Reason:* The higher the recall score, the fewer false negatives the model produces (recall = TP / (TP + FN)).  
+
+---
+
+### Additional Explanations
+
+#### What Are “CV Folds”?
+
+- **CV** stands for **Cross-Validation**. In **k-fold cross-validation**, the dataset is split into *k* separate subsets (folds). Then for each iteration (out of *k*):
+  - You train the model on *k-1* folds.
+  - You test the model on the remaining 1 fold.
+- This process repeats *k* times so that each fold serves as a test set exactly once. The performance metric (e.g., accuracy, recall) is averaged over the *k* folds to get a more robust estimate of how the model generalizes.  
+- **“CV folds”** specifically refers to those *k* distinct partitions of the data used during cross-validation.
+
+#### What Does It Mean to “Mesh the Coordinate Space”?
+
+- When **plotting a decision boundary** in a 2D feature space (e.g., features `x` and `y`), we often:
+  1. Create a grid (mesh) of points that spans the minimum to maximum values of `x` and `y`.
+  2. Use the trained model to predict a label/class for each point in that grid.
+  3. Color or contour-plot the grid according to the predicted classes.  
+- This gives a continuous “map” of the classifier’s decisions over the entire 2D plane, showing where class boundaries lie. 
+- **Meshing** basically means systematically creating a dense, evenly spaced set of points in the coordinate space so the decision boundary can be visualized as a smooth contour.
