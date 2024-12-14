@@ -34,3 +34,18 @@
 - (task) Use GridSearchCV to find optimal hyperparameters for SVC (e.g., C, kernel, gamma) on the training data, using k-fold CV to evaluate each parameter setting.  
 - (task) Apply the best found model to a test dataset or a new sample to confirm improved performance.  
 - (task) Experiment with different parameters and compare how the chosen hyperparameters affect the final accuracy.
+
+**What Are “CV Folds”? (question)**
+- CV stands for Cross-Validation. In k-fold cross-validation, the dataset is split into k separate subsets (folds). Then for each iteration (out of k):
+  - You train the model on k-1 folds.
+  - You test the model on the remaining 1 fold.
+- This process repeats k times so that each fold serves as a test set exactly once. The performance metric (e.g., accuracy, recall) is averaged over the k folds to get a more robust estimate of how the model generalizes.
+- “CV folds” specifically refers to those k distinct partitions of the data used during cross-validation.
+
+**What Does It Mean to “Mesh the Coordinate Space”? (question)**
+- When plotting a decision boundary in a 2D feature space (e.g., features x and y), we often:
+  1. Create a grid (mesh) of points that spans the minimum to maximum values of x and y.
+  2. Use the trained model to predict a label/class for each point in that grid.
+  3. Color or contour-plot the grid according to the predicted classes.
+- This gives a continuous “map” of the classifier’s decisions over the entire 2D plane, showing where class boundaries lie.
+- Meshing basically means systematically creating a dense, evenly spaced set of points in the coordinate space so the decision boundary can be visualized as a smooth contour.
