@@ -231,3 +231,78 @@ print("model score: %.3f" % clf.score(X_test, y_test))  # e.g., 0.799
 ---
 
 **Use these pipelines to ensure your entire machine learning process is reproducible, consistent, and less error-prone.** After mastering pipelines, you’ll have a powerful template for building more advanced workflows that scale to complex real-world projects.
+
+---
+
+# **Study Guide: Encoding Categorical Data (Week 14)**
+
+## **1. Why Encode Categorical Data?**
+- Many machine learning algorithms need numeric input only.  
+- Encoding transforms textual (categorical) features into numeric representations that models can understand.  
+- Care must be taken to choose the correct encoding method (LabelEncoder, OneHotEncoder, etc.).
+
+## **2. LabelEncoder**
+- **Typically used for target (class) labels** rather than features.  
+- Converts each distinct class label to an integer, e.g. “yes” → 1, “no” → 0.  
+- Python usage:
+  ```python
+  from sklearn.preprocessing import LabelEncoder
+
+  label_encoder = LabelEncoder()
+  label_encoder.fit(y_train)
+  y_train_encoded = label_encoder.transform(y_train)
+  y_test_encoded  = label_encoder.transform(y_test)
+  ```
+- **Important Note**:  
+  - LabelEncoder **maps** classes to integers. The numeric order is arbitrary (0,1,2,...).  
+  - For **multi-class** problems, you get 0,1,2,... N-1 integer encodings.  
+  - If used on features directly, the numeric ordering can be misleading. That’s why we usually prefer OneHotEncoder for non-ordinal features.
+
+## **3. OneHotEncoder**
+- **Often used for categorical features** (non-ordinal).  
+- Creates new columns (dummy variables) for each category. For example, a “color” feature with values `[blue, red, white]` becomes multiple binary columns:
+  ```
+  color_blue  color_red  color_white
+  ```
+- Python usage:
+  ```python
+  from sklearn.preprocessing import OneHotEncoder
+
+  onehot_encoder = OneHotEncoder()
+  onehot_encoder.fit(X_train)         # Learns the categories from X_train
+  X_train_encoded = onehot_encoder.transform(X_train)
+  X_test_encoded  = onehot_encoder.transform(X_test)
+  ```
+- **Why “fit” then “transform”?**  
+  - `.fit()` learns the categories from training data (i.e., columns and unique values).  
+  - `.transform()` actually converts the original data into numeric one-hot vectors.  
+  - `.fit_transform(X_train)` is a combined step that first fits, then transforms.
+
+## **4. Handling Missing Values**
+- The code snippet drops rows with missing values via `data.dropna()`.  
+- **In real-world applications**, dropping rows might lose valuable data. Usually, we **impute** missing values with something like `SimpleImputer(strategy='most_frequent')` or other strategies.  
+- **Key point**: For categorical columns, you might impute missing values with the most common category.
+
+## **5. Building an End-to-End Workflow**
+1. **Identify** columns that are categorical vs. numeric.  
+2. **Handle missing data** (imputation or dropping).  
+3. **Encode** categorical features (OneHotEncoder).  
+4. **Encode** the target if it’s categorical (LabelEncoder).  
+5. **Train** a model (e.g., logistic regression) on the encoded data.  
+6. **Evaluate** model on test data (predict & measure accuracy or other metrics).
+
+### **Breast Cancer Example** 
+1. **Data Loading**: `data = pd.read_csv("breast-cancer_modified.csv", na_values=['?'])`  
+2. **Missing Values**: `dropna()` was used. (In production, imputation might be better.)  
+3. **Split** features/labels: `X = datac.iloc[:,1:]`, `y = datac.iloc[:,0]`  
+4. **Train-Test Split**: `X_train, X_test, y_train, y_test = train_test_split(...)`  
+5. **OneHotEncoder** on X (all categorical).  
+6. **LabelEncoder** on y (the class variable).  
+7. **Fit** a logistic regression model with `model.fit(X_train_encoded, y_train_encoded)`.  
+8. **Predict** on test data, evaluate accuracy, etc.
+
+### **Tips & Best Practices**
+- Use **Pipelines** and **ColumnTransformer** when you have a mix of numeric and categorical features.  
+- Always **fit** encoders on **training** data only, then **transform** test data to ensure consistency.  
+- Watch out for **rare categories**: OneHotEncoder can break if test data has unseen categories, unless you set `handle_unknown="ignore"`.  
+- If the target label is a classification with textual labels, `LabelEncoder` is a straightforward choice.
