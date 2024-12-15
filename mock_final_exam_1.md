@@ -6,6 +6,7 @@
 (5 points)
 
 Naive Bayes is considered “naive” because:
+
 A. It assumes features are fully correlated, making it extremely accurate on any dataset.  
 B. It uses a kernel trick to transform data into higher dimensions.  
 C. It assumes each feature is conditionally independent given the class label.  
@@ -17,6 +18,7 @@ D. It always requires numeric features scaled to [0,1].
 (4 points)
 
 Which of the following **matplotlib** plot(s) would be most helpful to visually **inspect outliers** in a regression context?
+
 A. A scatter plot of `x_data` vs. `y_data` plus a regression line  
 B. A bar chart of the regression coefficients  
 C. A box plot or residual plot highlighting large errors  
@@ -28,6 +30,7 @@ D. A stacked bar chart of predicted vs. actual classes
 (3 points)
 
 How do we typically decide the **number of clusters (k)** in k-Means using the **Elbow Method**?
+
 A. We pick the k that gives the **largest** within-cluster sum of squares (inertia).  
 B. We pick the k corresponding to the first time the plot forms loops.  
 C. We choose a random k.  
@@ -39,6 +42,7 @@ D. We look for a “bend” or “elbow” in the inertia plot, where further in
 (3 points)
 
 You want to use 10-fold cross-validation to tune the number of neighbors (k) in k-NN. Which step is **most** essential?
+
 A. Fit k-NN on the entire dataset without cross-validation.  
 B. Use **GridSearchCV** or manual loops over k in [1,3,5,...], evaluating accuracy via cross-validation for each k.  
 C. Encode the target labels with OneHotEncoder.  
@@ -50,6 +54,7 @@ D. Plot the decision boundary for each k without measuring accuracy.
 (5 points)
 
 **Why** do scikit-learn pipelines help prevent data leakage?
+
 A. They randomly shuffle the dataset multiple times.  
 B. Pipelines fit preprocessing only on the training data, then apply those **same** transformations to the test set.  
 C. They always ignore new or unknown categories in categorical data.  
@@ -61,6 +66,7 @@ D. They store data in a CSV file that is never read by the final estimator.
 (5 points)
 
 Which attribute in an sklearn PCA object tells you how much variance each principal component captures?
+
 A. `pca.components_`  
 B. `pca.singular_values_`  
 C. `pca.explained_variance_ratio_`  
@@ -122,6 +128,7 @@ clf.fit(X_train_encoded, y_train)
 (10 points)
 
 We want a pipeline that:  
+
 1) Imputes missing numeric values with median,  
 2) Scales the numeric features,  
 3) Uses **LogisticRegression(C=100)**,  
@@ -261,6 +268,7 @@ D. The dataset must have zero variance in features.
 (10 points)
 
 You’re given a dataset `finalExamData.csv` with 10 numeric features and 5 categorical features for a **binary** classification (0/1). You want to:
+
 - Impute numeric columns (median), scale numeric columns.  
 - OneHotEncode categorical columns (`handle_unknown='ignore'`).  
 - Then use PCA on numeric columns only, retaining 90% variance.  
